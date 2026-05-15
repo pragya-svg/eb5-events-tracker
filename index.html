@@ -1,0 +1,2109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EB5 Events Tracker · Feb–Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --bg-2: #ffffff;
+    --ink: #0a1f3c;
+    --ink-2: #2b3a55;
+    --ink-3: #6a7891;
+    --line: #e6e3da;
+    --line-2: #efece4;
+    --accent: #c0894a;        /* gold */
+    --accent-ink: #6b4a1f;
+    --navy: #0a1f3c;
+    --navy-soft: #122a4f;
+    --good: #1f7a4d;
+    --warn: #b45309;
+    --bad:  #b91c1c;
+    --chip-bg: #ffffff;
+    --shadow-sm: 0 1px 0 rgba(10,31,60,.06), 0 1px 2px rgba(10,31,60,.04);
+    --shadow-md: 0 8px 24px rgba(10,31,60,.08), 0 2px 6px rgba(10,31,60,.05);
+    --radius: 14px;
+
+    /* type colors */
+    --t-ipc: #2563eb;
+    --t-pc:  #7c3aed;
+    --t-conf:#0f766e;
+    --t-fuel:#c0894a;
+    --t-tour:#be185d;
+    --t-mtg: #475569;
+    --t-hen: #0369a1;
+    --t-sem: #b45309;
+  }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01","cv11";
+    letter-spacing: -0.005em;
+  }
+  * { box-sizing: border-box; }
+  a { color: inherit; }
+
+  /* ---------- Header ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(246,245,241,.85);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1340px; margin: 0 auto;
+    padding: 14px 28px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: linear-gradient(135deg, var(--navy), #1a3a6e);
+    display: grid; place-items: center; color: white;
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.02em;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 2px 6px rgba(10,31,60,.25);
+  }
+  .crumbs { color: var(--ink-3); font-size: 13px; font-weight: 500; }
+  .crumbs b { color: var(--ink); font-weight: 600; }
+  .topbar-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .icon-btn {
+    height: 36px; padding: 0 14px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 9px; color: var(--ink-2);
+    font: 500 13px 'Inter', sans-serif; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all .15s ease;
+  }
+  .icon-btn:hover { color: var(--ink); border-color: #d6d2c4; box-shadow: var(--shadow-sm); }
+  .icon-btn.primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .icon-btn.primary:hover { background: var(--navy-soft); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1340px; margin: 0 auto;
+    padding: 56px 28px 28px;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent-ink); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(192,137,74,.1);
+    border: 1px solid rgba(192,137,74,.25);
+  }
+  .eyebrow .pulse {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(192,137,74,.18);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.02; letter-spacing: -0.02em;
+    margin: 18px 0 14px;
+  }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 600; }
+  .lede { color: var(--ink-2); font-size: 17px; max-width: 720px; line-height: 1.55; }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    max-width: 1340px; margin: 28px auto 0;
+    padding: 0 28px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+  }
+  .stat {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 18px 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .stat:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .stat .label {
+    color: var(--ink-3); font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .stat .value {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 30px;
+    color: var(--ink); margin-top: 6px; letter-spacing: -0.02em;
+  }
+  .stat .sub { color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+  @media (max-width: 980px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- Filter bar ---------- */
+  .filterbar {
+    position: sticky; top: 65px; z-index: 40;
+    background: rgba(246,245,241,.92);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--line);
+    margin-top: 36px;
+  }
+  .filterbar-inner {
+    max-width: 1340px; margin: 0 auto;
+    padding: 14px 28px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  .search {
+    position: relative; flex: 1; min-width: 240px; max-width: 380px;
+  }
+  .search input {
+    width: 100%; height: 38px;
+    padding: 0 14px 0 38px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font: 400 14px 'Inter', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border .15s ease, box-shadow .15s ease;
+  }
+  .search input:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(10,31,60,.08);
+  }
+  .search svg {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-3);
+  }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    height: 32px; padding: 0 13px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font: 500 13px 'Inter', sans-serif;
+    color: var(--ink-2);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all .15s ease;
+    white-space: nowrap;
+  }
+  .pill:hover { border-color: #d6d2c4; color: var(--ink); }
+  .pill.active {
+    background: var(--navy); border-color: var(--navy);
+    color: white;
+  }
+  .pill .count {
+    font-size: 11px; opacity: .65;
+    padding: 1px 6px; background: rgba(0,0,0,.06); border-radius: 999px;
+  }
+  .pill.active .count { background: rgba(255,255,255,.18); opacity: .9; }
+
+  .view-toggle {
+    margin-left: auto;
+    display: inline-flex; padding: 3px; gap: 2px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 9px;
+  }
+  .view-toggle button {
+    height: 30px; padding: 0 12px;
+    background: transparent; border: none;
+    font: 500 13px 'Inter', sans-serif;
+    color: var(--ink-3); cursor: pointer;
+    border-radius: 7px;
+    transition: all .15s ease;
+  }
+  .view-toggle button.active {
+    background: var(--ink); color: white;
+  }
+
+  /* ---------- Content ---------- */
+  .content {
+    max-width: 1340px; margin: 0 auto;
+    padding: 36px 28px 120px;
+  }
+
+  /* Month group */
+  .month-block { margin-bottom: 56px; scroll-margin-top: 130px; }
+  .month-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .month-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 32px;
+    letter-spacing: -0.02em;
+  }
+  .month-title span { color: var(--ink-3); font-weight: 400; margin-left: 10px; font-size: 18px; font-style: italic; }
+  .month-meta { color: var(--ink-3); font-size: 13px; font-weight: 500; }
+
+  /* Event grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+
+  /* Event card */
+  .card {
+    position: relative;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px 18px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--type-color, var(--ink-3));
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #d6d2c4;
+  }
+  .card-top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .date-chip {
+    display: inline-flex; flex-direction: column; align-items: center;
+    background: linear-gradient(180deg, #fafaf6, var(--bg-2));
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 6px 10px 5px;
+    min-width: 56px;
+    line-height: 1;
+  }
+  .date-chip .m {
+    color: var(--accent-ink); font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .date-chip .d {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 22px; color: var(--ink); margin-top: 4px; letter-spacing: -0.02em;
+  }
+  .date-chip .r { font-size: 10px; color: var(--ink-3); margin-top: 3px; font-weight: 500; }
+
+  .type-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--type-color);
+    padding: 4px 10px;
+    background: var(--type-bg);
+    border-radius: 999px;
+    border: 1px solid var(--type-border);
+  }
+  .type-tag::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--type-color);
+  }
+
+  .card-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600; font-size: 18px;
+    line-height: 1.25; letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 8px 0 6px;
+  }
+  .card-loc {
+    color: var(--ink-2); font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card-loc svg { color: var(--ink-3); flex-shrink: 0; }
+  .card-loc .venue { color: var(--ink-3); font-weight: 400; }
+  .card-time {
+    color: var(--ink-3); font-size: 12px; margin-top: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .card-foot {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--line-2);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .owners { display: flex; align-items: center; }
+  .avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ava-bg, #cbd5e1);
+    color: white; font-size: 10px; font-weight: 700;
+    display: grid; place-items: center;
+    border: 2px solid var(--bg-2);
+    margin-left: -6px;
+    cursor: default;
+  }
+  .avatar:first-child { margin-left: 0; }
+  .owners-label {
+    color: var(--ink-3); font-size: 12px; margin-left: 8px;
+    font-weight: 500;
+  }
+  .owners-label b { color: var(--ink-2); font-weight: 600; }
+  .status-dot {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 8px; border-radius: 999px;
+  }
+  .status-dot.done { background: rgba(31,122,77,.1); color: var(--good); }
+  .status-dot.progress { background: rgba(180,83,9,.1); color: var(--warn); }
+  .status-dot.pending { background: rgba(106,120,145,.12); color: var(--ink-3); }
+
+  /* ---------- Urgent alert banner ---------- */
+  .alert-banner {
+    max-width: 1340px; margin: 20px auto 0;
+    padding: 0 28px;
+  }
+  .alert-inner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fecaca 100%);
+    border: 1px solid rgba(185,28,28,.22);
+    border-left: 4px solid var(--bad);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(185,28,28,.08);
+    flex-wrap: wrap;
+  }
+  .alert-bell {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--bad); color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(185,28,28,.3);
+    animation: bellRing 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes bellRing {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    65% { transform: rotate(12deg); }
+    72% { transform: rotate(-12deg); }
+    80% { transform: rotate(8deg); }
+    88% { transform: rotate(-4deg); }
+  }
+  .alert-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--bad);
+  }
+  .alert-label b { color: var(--ink); font-weight: 700; }
+  .alert-list {
+    display: flex; gap: 8px; flex-wrap: wrap; flex: 1; min-width: 200px;
+  }
+  .alert-item {
+    background: rgba(255,255,255,.7);
+    border: 1px solid rgba(185,28,28,.15);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12.5px; color: var(--ink);
+    cursor: pointer;
+    transition: all .15s ease;
+    font-weight: 500;
+  }
+  .alert-item b {
+    color: var(--bad); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-right: 8px;
+  }
+  .alert-item:hover {
+    background: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(185,28,28,.15);
+  }
+
+  /* Refresh indicator — bottom right, subtle */
+  .refresh-pill {
+    position: fixed; bottom: 18px; right: 18px;
+    z-index: 30;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 11.5px; font-weight: 500;
+    color: var(--ink-3);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .refresh-pill:hover { color: var(--ink); border-color: #d6d2c4; }
+  .refresh-pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--good);
+  }
+  .refresh-pill.refreshing .dot {
+    background: var(--accent);
+    animation: refreshSpin 1s linear infinite;
+  }
+  @keyframes refreshSpin {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Subtle flash on data update */
+  @keyframes dataFlash {
+    0% { background: rgba(31,122,77,.12); }
+    100% { background: transparent; }
+  }
+  .data-updated { animation: dataFlash 1.2s ease-out; }
+
+  /* ---------- Next-event hero card ---------- */
+  .next-event-hero {
+    margin: 32px auto 0;
+    max-width: 1340px;
+    padding: 0 28px;
+  }
+  .next-card {
+    position: relative;
+    background: linear-gradient(135deg, #0a1f3c 0%, #1a3a6e 60%, #2a4f8a 100%);
+    border-radius: 18px;
+    padding: 28px 32px;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 12px 40px rgba(10,31,60,.18), 0 2px 6px rgba(10,31,60,.1);
+  }
+  .next-card::before {
+    content: "";
+    position: absolute; right: -80px; top: -80px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(192,137,74,.32) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .next-card::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(192,137,74,.5), transparent);
+  }
+  .next-card-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+  }
+  .next-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 10px;
+  }
+  .next-label .pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(192,137,74,.35);
+    animation: nextPulse 2s ease-in-out infinite;
+  }
+  @keyframes nextPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.85; }
+  }
+  .next-name {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: clamp(22px, 2.6vw, 32px); line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .next-meta {
+    color: rgba(255,255,255,.78);
+    font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .next-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.35); }
+  .next-countdown {
+    display: flex; flex-direction: column; align-items: flex-end;
+    border-left: 1px solid rgba(255,255,255,.12);
+    padding-left: 28px;
+  }
+  .next-countdown .num {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 56px; line-height: 1; letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, #f5d9b0 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .next-countdown .unit {
+    color: rgba(255,255,255,.65); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .next-card-inner { grid-template-columns: 1fr; }
+    .next-countdown { border-left: none; border-top: 1px solid rgba(255,255,255,.12); padding: 16px 0 0; align-items: flex-start; flex-direction: row; gap: 12px; }
+  }
+
+  /* This-week strip */
+  .this-week-strip {
+    max-width: 1340px; margin: 14px auto 0; padding: 0 28px;
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .tw-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--ink-3); text-transform: uppercase;
+    padding-right: 8px;
+  }
+  .tw-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .tw-chip:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+    transform: translateY(-1px);
+  }
+  .tw-chip .dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  /* Category badges (replaces type-tag visually) */
+  .cat-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--cat-color);
+    padding: 5px 11px;
+    background: var(--cat-bg);
+    border-radius: 999px;
+    border: 1px solid var(--cat-border);
+  }
+  .cat-badge::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--cat-color);
+  }
+
+  /* Days-out chip — visual urgency indicator */
+  .days-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-top: 6px;
+  }
+  .days-chip.past { background: var(--line-2); color: var(--ink-3); }
+  .days-chip.today { background: rgba(185,28,28,.12); color: var(--bad); animation: pulseDot 1.6s ease-in-out infinite; }
+  .days-chip.thisweek { background: rgba(192,137,74,.14); color: var(--accent-ink); }
+  .days-chip.soon { background: rgba(37,99,235,.10); color: #1d4ed8; }
+  .days-chip.later { background: var(--bg); color: var(--ink-3); }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Region flag */
+  .region-flag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  /* ---------- Marketing readiness on cards ---------- */
+  .mkt-strip {
+    margin-top: 12px; padding: 10px 12px 11px;
+    background: linear-gradient(180deg, #fafaf6, #f6f4ec);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+  }
+  .mkt-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 7px;
+  }
+  .mkt-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .mkt-ratio {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 14px; color: var(--ink); letter-spacing: -0.01em;
+  }
+  .mkt-ratio span { color: var(--ink-3); font-weight: 400; }
+  .mkt-bar {
+    height: 5px; background: rgba(10,31,60,.07); border-radius: 999px;
+    overflow: hidden; position: relative;
+  }
+  .mkt-bar .fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--good), #2da76b);
+    transition: width .3s ease;
+  }
+  .mkt-bar .fill.low { background: linear-gradient(90deg, var(--bad), #dc2626); }
+  .mkt-bar .fill.mid { background: linear-gradient(90deg, var(--warn), #d97706); }
+  .mkt-icons {
+    display: flex; gap: 6px; margin-top: 9px;
+  }
+  .mkt-icon {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 5px 4px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    font-size: 9px; font-weight: 600;
+    color: var(--ink-3);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .mkt-icon .glyph {
+    width: 14px; height: 14px; opacity: .7;
+  }
+  .mkt-icon.done { color: var(--good); border-color: rgba(31,122,77,.25); background: rgba(31,122,77,.06); }
+  .mkt-icon.done .glyph { opacity: 1; }
+  .mkt-icon.progress { color: var(--warn); border-color: rgba(180,83,9,.25); background: rgba(180,83,9,.06); }
+  .mkt-icon.pending { color: var(--ink-3); }
+  .mkt-icon.na { opacity: 0.35; }
+
+  /* Readiness pill in card-foot */
+  .ready-pill {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 9px; border-radius: 999px;
+    font-size: 11px; font-weight: 600;
+    background: rgba(31,122,77,.1); color: var(--good);
+    border: 1px solid rgba(31,122,77,.15);
+  }
+  .ready-pill.warn { background: rgba(180,83,9,.1); color: var(--warn); border-color: rgba(180,83,9,.15); }
+  .ready-pill.crit { background: rgba(185,28,28,.08); color: var(--bad); border-color: rgba(185,28,28,.15); }
+  .ready-pill.na { background: var(--line-2); color: var(--ink-3); border-color: var(--line); }
+
+  /* ---------- Marketing in modal ---------- */
+  .mkt-section { margin-top: 26px; }
+  .mkt-section h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mkt-section h3 .badge {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 14px; color: var(--ink); letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .checklist {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .check-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px; color: var(--ink-2);
+    transition: all .15s ease;
+    user-select: none;
+  }
+  .check-item:hover { border-color: #d6d2c4; }
+  .check-item .dot {
+    width: 14px; height: 14px; border-radius: 4px;
+    background: var(--line);
+    border: 1.5px solid var(--ink-3);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    color: white; font-size: 10px; font-weight: 800;
+  }
+  .check-item[data-state="done"] {
+    background: rgba(31,122,77,.06);
+    border-color: rgba(31,122,77,.25);
+    color: var(--ink);
+  }
+  .check-item[data-state="done"] .dot {
+    background: var(--good); border-color: var(--good);
+  }
+  .check-item[data-state="done"] .dot::after { content: "✓"; }
+  .check-item[data-state="progress"] {
+    background: rgba(180,83,9,.06);
+    border-color: rgba(180,83,9,.25);
+    color: var(--ink);
+  }
+  .check-item[data-state="progress"] .dot {
+    background: var(--warn); border-color: var(--warn);
+  }
+  .check-item[data-state="progress"] .dot::after { content: "◐"; font-size: 11px; }
+  .check-item[data-state="na"] {
+    opacity: 0.45; color: var(--ink-3);
+  }
+  .check-item[data-state="na"] .dot {
+    background: transparent; border-style: dashed; color: var(--ink-3);
+  }
+  .check-item[data-state="na"] .dot::after { content: "—"; color: var(--ink-3); }
+
+  .channel-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px;
+  }
+  .channel-cell {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 10px 12px;
+  }
+  .channel-cell .k {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--ink-3); text-transform: uppercase;
+  }
+  .channel-cell .v {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+    color: var(--ink); margin-top: 4px; letter-spacing: -0.01em;
+  }
+  .channel-cell .status {
+    font-size: 10px; font-weight: 600; margin-top: 3px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .channel-cell.done { background: rgba(31,122,77,.06); border-color: rgba(31,122,77,.18); }
+  .channel-cell.done .status { color: var(--good); }
+  .channel-cell.live { background: rgba(180,83,9,.06); border-color: rgba(180,83,9,.18); }
+  .channel-cell.live .status { color: var(--warn); }
+  .channel-cell.pending .status { color: var(--ink-3); }
+  .channel-cell.na { opacity: 0.5; }
+  .channel-cell.na .status { color: var(--ink-3); }
+
+  .mkt-progress {
+    height: 8px; background: var(--line-2); border-radius: 999px;
+    overflow: hidden; margin-bottom: 14px;
+  }
+  .mkt-progress .fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--good), #2da76b);
+    transition: width .3s ease;
+  }
+
+  .mkt-tip {
+    margin-top: 14px;
+    padding: 10px 14px;
+    font-size: 12px; color: var(--ink-3);
+    background: rgba(10,31,60,.03);
+    border-radius: 8px;
+    border-left: 2px solid var(--accent);
+    line-height: 1.5;
+  }
+  .mkt-tip b { color: var(--ink-2); font-weight: 600; }
+
+  /* Past event styling */
+  .card.past { opacity: 0.7; }
+  .card.past .card-name { color: var(--ink-2); }
+
+  /* Empty state */
+  .empty {
+    text-align: center; padding: 80px 20px;
+    color: var(--ink-3);
+  }
+  .empty .icon {
+    font-size: 36px; margin-bottom: 14px; opacity: .5;
+  }
+
+  /* ---------- Timeline view ---------- */
+  .timeline { display: none; }
+  .timeline.active { display: block; }
+  .grid-view.active { display: grid; }
+  .grid-view { display: none; }
+
+  .tl-month { margin-bottom: 48px; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line-2);
+    align-items: start;
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-date {
+    color: var(--ink-2); font-size: 14px; font-weight: 600;
+    padding-top: 2px;
+  }
+  .tl-date .day { color: var(--ink-3); font-size: 12px; font-weight: 500; }
+  .tl-event {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .tl-event .marker {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--type-color, var(--ink-3));
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--type-bg, transparent);
+  }
+  .tl-event .body { flex: 1; min-width: 0; }
+  .tl-event .name {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+    color: var(--ink); letter-spacing: -0.01em;
+  }
+  .tl-event .meta {
+    color: var(--ink-3); font-size: 13px; margin-top: 3px;
+  }
+  .tl-event .meta b { color: var(--ink-2); font-weight: 600; }
+
+  /* Footer */
+  footer {
+    max-width: 1340px; margin: 0 auto;
+    padding: 24px 28px 40px;
+    color: var(--ink-3); font-size: 12px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(10,31,60,.4);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    z-index: 100; display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--bg-2);
+    border-radius: 18px;
+    max-width: 560px; width: 100%;
+    max-height: 90vh; overflow: auto;
+    padding: 32px;
+    box-shadow: 0 40px 80px rgba(10,31,60,.3);
+    position: relative;
+    border-top: 4px solid var(--modal-color, var(--accent));
+  }
+  .modal .close {
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 8px;
+    background: transparent; border: none; color: var(--ink-3);
+    cursor: pointer; font-size: 18px;
+    display: grid; place-items: center;
+  }
+  .modal .close:hover { background: var(--line-2); color: var(--ink); }
+  .modal h2 {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 26px; margin: 4px 0 6px; letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .modal .meta-grid {
+    margin-top: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .modal .meta-grid .row {
+    border-top: 1px solid var(--line-2);
+    padding-top: 12px;
+  }
+  .modal .meta-grid .row.full { grid-column: 1 / -1; }
+  .modal .meta-grid .k {
+    font-size: 11px; color: var(--ink-3); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .modal .meta-grid .v {
+    font-size: 14px; color: var(--ink); font-weight: 500; margin-top: 4px;
+    line-height: 1.4;
+  }
+  .modal .owner-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .modal .owner-list .o {
+    font-size: 12px; padding: 4px 10px; border-radius: 999px;
+    background: var(--line-2); color: var(--ink-2); font-weight: 500;
+  }
+
+  @media (max-width: 720px) {
+    .hero { padding: 36px 20px 18px; }
+    .content { padding: 24px 20px 80px; }
+    .filterbar-inner { padding: 12px 20px; }
+    .topbar-inner { padding: 12px 20px; }
+    .month-title { font-size: 26px; }
+    .view-toggle { width: 100%; order: 99; }
+    .tl-row { grid-template-columns: 100px 1fr; gap: 12px; }
+  }
+
+  /* ---------- Password gate ---------- */
+  .auth-gate {
+    position: fixed; inset: 0;
+    background: linear-gradient(180deg, #f6f5f1 0%, #ede9dc 100%);
+    z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .auth-card {
+    max-width: 400px; width: 100%;
+    background: var(--bg-2);
+    padding: 40px 36px 32px;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(10,31,60,.15), 0 4px 12px rgba(10,31,60,.06);
+    text-align: center;
+    border-top: 4px solid var(--accent);
+  }
+  .auth-card .logo {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--navy), #1a3a6e);
+    border-radius: 14px;
+    display: grid; place-items: center;
+    color: white; font-weight: 800; font-size: 16px;
+    margin: 0 auto 18px;
+    box-shadow: 0 4px 12px rgba(10,31,60,.2);
+  }
+  .auth-card h1 {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 26px; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 6px;
+  }
+  .auth-card p {
+    color: var(--ink-3); font-size: 14px; margin: 0 0 24px;
+    line-height: 1.5;
+  }
+  .auth-card input {
+    width: 100%; height: 44px;
+    padding: 0 16px;
+    background: var(--bg);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    font: 500 15px 'Inter', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border .15s ease, box-shadow .15s ease;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .auth-card input:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(10,31,60,.08);
+  }
+  .auth-card input.error {
+    border-color: var(--bad);
+    animation: shake .35s ease-in-out;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  .auth-card button {
+    width: 100%; height: 44px;
+    margin-top: 12px;
+    background: var(--navy);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font: 600 14px 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background .15s ease;
+    letter-spacing: 0.01em;
+  }
+  .auth-card button:hover { background: var(--navy-soft); }
+  .auth-card .err-msg {
+    color: var(--bad); font-size: 12px; font-weight: 500;
+    margin-top: 10px; min-height: 16px;
+  }
+  .auth-card .footer {
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--line-2);
+    color: var(--ink-3); font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .auth-card .footer b { color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PASSWORD GATE — protects both public and admin views.
+     Default password: EB5events2026   (case-sensitive)
+     To change the password:
+       1. In Terminal run:  python3 -c "import hashlib; print(hashlib.sha256('YOUR_NEW_PASSWORD'.encode()).hexdigest())"
+       2. Copy the hash it prints
+       3. Search this file for PASSWORD_HASH and paste your new hash between the quotes
+============================================================ -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="logo">EB5</div>
+    <h1>Restricted access</h1>
+    <p>Enter the password to view the events tracker.</p>
+    <form id="authForm" autocomplete="off">
+      <input type="password" id="authInput" placeholder="Password" autofocus autocomplete="current-password" />
+      <button type="submit">Unlock</button>
+      <div class="err-msg" id="authErr"></div>
+    </form>
+    <div class="footer">
+      <b>EB5 United · Events Tracker</b><br>
+      Authorised personnel only · Contact Pragya for access
+    </div>
+  </div>
+</div>
+
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="dot">EB5</span>
+      <span>Events Tracker</span>
+    </div>
+    <div class="crumbs">·&nbsp;&nbsp;<b>Feb – Jul 2026</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span id="dataSource">loading…</span></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print
+      </button>
+      <button class="icon-btn primary" id="exportBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="eyebrow"><span class="pulse"></span>Live · Updated <span id="todayLabel">today</span></span>
+  <p class="lede" style="margin-top:18px;font-size:18px;">A consolidated view of every EB5 United event, consultation, conference, and CapU / Fuel investor event scheduled across the next six months — pulled directly from the master tracker and aligned to the latest team schedule.</p>
+</section>
+
+<section class="alert-banner" id="alertBanner"></section>
+<section class="next-event-hero" id="nextEventHero"></section>
+<section class="this-week-strip" id="thisWeekStrip"></section>
+<section class="stats" id="stats"></section>
+
+<section class="filterbar">
+  <div class="filterbar-inner">
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search city, event, owner…" />
+    </div>
+    <div class="pills" id="typePills"></div>
+    <div class="view-toggle">
+      <button id="gridBtn" class="active">Grid</button>
+      <button id="timelineBtn">Timeline</button>
+    </div>
+  </div>
+</section>
+
+<main class="content">
+  <div id="gridContainer" class="grid-view active"></div>
+  <div id="timelineContainer" class="timeline"></div>
+</main>
+
+<footer>
+  <span>Source · <b>EB5 Events Tracker Sheet 2023–2026.xlsx</b> + team schedule screenshots</span>
+  <span>Built by Pragya · <span id="footerCount">—</span> tracked</span>
+</footer>
+
+<div class="refresh-pill" id="refreshPill" title="Click to refresh now">
+  <span class="dot"></span>
+  <span id="refreshLabel">Live · just now</span>
+</div>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ============================================================
+// PASSWORD GATE — separate passwords for public and admin views
+// Public password: EB5events2026   (share with manager)
+// Admin password:  EB5pragya2026   (private — only you)
+// To change either password, run:
+//   python3 -c "import hashlib; print(hashlib.sha256('NEW_PASSWORD'.encode()).hexdigest())"
+// Then replace the relevant hash below.
+// ============================================================
+const PASSWORD_HASH       = '3aa3a1abf38b5d016aeb3ca0632f37b869fd1b9dc01e14d7f5372097bcdfed29'; // EB5events2026
+const ADMIN_PASSWORD_HASH = '23d3e977665b85e400d0e8f833945ef746cc65421971eff1724d6b2d5f329b54'; // EB5pragya2026
+const AUTH_KEY       = 'eb5-auth-v1';
+const ADMIN_AUTH_KEY = 'eb5-admin-auth-v1';
+
+async function sha256(s) {
+  const buf = new TextEncoder().encode(s);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const wantsAdmin = new URLSearchParams(location.search).get('admin') === '1';
+
+// Allow ?logout=1 to clear both tokens
+if (new URLSearchParams(location.search).get('logout') === '1') {
+  localStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(ADMIN_AUTH_KEY);
+}
+
+const userAuthValid  = localStorage.getItem(AUTH_KEY) === PASSWORD_HASH;
+const adminAuthValid = localStorage.getItem(ADMIN_AUTH_KEY) === ADMIN_PASSWORD_HASH;
+
+// Decide which gate to show — admin URL requires admin password
+const needsGate = wantsAdmin ? !adminAuthValid : !userAuthValid;
+
+if (needsGate) {
+  document.getElementById('authGate').style.display = 'flex';
+  document.documentElement.style.overflow = 'hidden';
+  // Adjust gate UI for admin mode
+  if (wantsAdmin) {
+    document.querySelector('#authGate h1').textContent = 'Admin access';
+    document.querySelector('#authGate p').textContent = 'Enter the admin password to view the full ops dashboard.';
+    document.querySelector('#authGate .footer').innerHTML = '<b>EB5 United · Admin View</b><br>For Pragya only · Marketing readiness + ads tracking';
+  }
+}
+
+document.getElementById('authForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('authInput');
+  const err = document.getElementById('authErr');
+  const hash = await sha256(input.value);
+  const expected = wantsAdmin ? ADMIN_PASSWORD_HASH : PASSWORD_HASH;
+  const storeKey = wantsAdmin ? ADMIN_AUTH_KEY : AUTH_KEY;
+  if (hash === expected) {
+    localStorage.setItem(storeKey, hash);
+    // Reload so ADMIN_MODE and all conditional rendering pick up the new auth state
+    window.location.reload();
+  } else {
+    err.textContent = 'Incorrect password';
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 400);
+    input.select();
+  }
+});
+
+// ============================================================
+// CONFIG — paste your Google Sheets "Publish to web" CSV URL between the quotes.
+// To get the URL:
+//   1. Open your Sheet → File → Share → Publish to web
+//   2. Choose the sheet tab, format = CSV, click Publish
+//   3. Copy the URL — looks like:
+//      https://docs.google.com/spreadsheets/d/e/2PACX-1v.../pub?output=csv
+//   4. Paste it below. Save. Refresh the page.
+// ============================================================
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRp_qBp-7JEM-ngk4_80K_Ld3ueaXw3lVb6wpQpWC1ptKEacf50gbQ4mmq463_JQ7DykF6ZF4K5NBSf/pub?gid=1143426625&single=true&output=csv';
+
+// Optional: paste your Sheet's edit URL (https://docs.google.com/spreadsheets/d/SHEET_ID/edit)
+// to make the "Live from Google Sheet" badge clickable. Only shown in admin mode.
+const SHEET_EDIT_URL = 'https://docs.google.com/spreadsheets/d/1vkHlGLi6TKTIuBetdWfml8FP6PSxdME_Wvz4xf0X5KI/edit?gid=1143426625#gid=1143426625';
+
+// ============================================================
+// ADMIN MODE — requires BOTH ?admin=1 in URL AND valid admin password.
+// Public visitors who type the regular password CANNOT switch to admin
+// even if they discover the ?admin=1 URL — they'll get the admin gate.
+// ============================================================
+const ADMIN_MODE = wantsAdmin && adminAuthValid;
+
+// ----- DATA -----
+const EVENTS = [
+  // FEBRUARY 2026
+  { id:1, month:'Feb 2026', dateLabel:'Feb 11-12', start:'2026-02-11', end:'2026-02-12', name:'Atlanta Investor Personal Consultations', type:'IPC', city:'Atlanta', region:'USA', owners:['Rafael'], status:'Done', lang:'EN' },
+  { id:2, month:'Feb 2026', dateLabel:'Feb 18-19', start:'2026-02-18', end:'2026-02-19', name:'Alexandria IPC', type:'IPC', city:'Alexandria', region:'USA', owners:['Rafael'], status:'Done', lang:'EN' },
+  { id:3, month:'Feb 2026', dateLabel:'Feb 25-26', start:'2026-02-25', end:'2026-02-26', name:'Tampa IPC', type:'IPC', city:'Tampa, FL', region:'USA', owners:['Rafael'], status:'Done', lang:'EN' },
+
+  // MARCH 2026
+  { id:4, month:'Mar 2026', dateLabel:'Mar 2-3', start:'2026-03-02', end:'2026-03-03', name:'NY / Dallas / Austin Personal Consultations', type:'PC', city:'NY · Dallas · Austin', region:'USA', owners:['Matthew'], status:'Done', lang:'EN' },
+  { id:5, month:'Mar 2026', dateLabel:'Mar 4', start:'2026-03-04', end:'2026-03-04', name:'Gavin Personal Consultations', type:'PC', city:'—', region:'—', owners:['Gavin'], status:'Done' },
+  { id:6, month:'Mar 2026', dateLabel:'Mar 4-5', start:'2026-03-04', end:'2026-03-05', name:'Charlotte IPC', type:'IPC', city:'Charlotte, NC', region:'USA', owners:['Rafael'], status:'Done', lang:'EN' },
+  { id:7, month:'Mar 2026', dateLabel:'Mar 17-18', start:'2026-03-17', end:'2026-03-18', name:'EB5 Industry Conference – Vietnam', type:'Conference', city:'Ho Chi Minh, Vietnam', venue:'The Reverie Saigon', region:'APAC', owners:[], status:'Done', time:'7:00 am – 8:00 am', mktOverride:{newsletter:'na', ads:'na', collateral:'done'} },
+
+  // APRIL 2026
+  { id:8, month:'Apr 2026', dateLabel:'Wed, Apr 15', start:'2026-04-15', end:'2026-04-15', name:'Condado Event · Fuel / CAPU PE / Moncayo & Casa Plug', type:'EB5/Fuel', city:'Condado, Puerto Rico', venue:'AC Marriott Barcelona', region:'LATAM', owners:['Brad','Scott','Andy','Brennan','Alicia','Tempel','Jeff','Duncan'], status:'Done', time:'18:00', mktOverride:{newsletter:'done', ads:'na', collateral:'done'} },
+  { id:9, month:'Apr 2026', dateLabel:'Mid April', start:'2026-04-15', end:'2026-04-25', name:'Henley Africa Tour', type:'Tour', city:'Nigeria · Kenya · Ghana', region:'Africa', owners:['Gavin'], mktOverride:{newsletter:'na', ads:'na', collateral:'na'} },
+  { id:10, month:'Apr 2026', dateLabel:'Wed, Apr 22', start:'2026-04-22', end:'2026-04-22', name:'Invest America LatAm', type:'EB5/Fuel', city:'Doral, FL', region:'USA', owners:['Felipe','Raf','Brennan'], mktOverride:{newsletter:'na', ads:'na', collateral:'na'} },
+  { id:11, month:'Apr 2026', dateLabel:'Wed, Apr 29', start:'2026-04-29', end:'2026-04-29', name:'IIUSA DC + EB5 / Fuel Event', type:'EB5/Fuel', city:'Washington, DC', venue:'Sixty DC', region:'USA', owners:['Duncan','Matthew','Wenbo','Gavin','Ioana','Brennan','Brad','Scott','Alicia'], mktOverride:{newsletter:'done', ads:'done', collateral:'done'} },
+
+  // MAY 2026
+  { id:14, month:'May 2026', dateLabel:'Sat, May 02', start:'2026-05-02', end:'2026-05-02', name:'New Jersey Event – EB5 / Fuel', type:'EB5/Fuel', city:'New Jersey', venue:'Sheraton Edison', region:'USA', owners:['Duncan','Matthew','Wenbo','Gavin','Ioana','Brennan'], time:'12pm – 3pm', mktOverride:{newsletter:'done', ads:'done', collateral:'done'} },
+  { id:15, month:'May 2026', dateLabel:'May 3-6', start:'2026-05-03', end:'2026-05-06', name:'Dallas Meetings', type:'Meetings', city:'Dallas, TX', region:'USA', owners:['Matthew'] },
+  { id:16, month:'May 2026', dateLabel:'Tue, May 05', start:'2026-05-05', end:'2026-05-05', name:'Miami Event – Fuel', type:'Fuel', city:'Miami, FL', venue:'Betr HQ', region:'USA', owners:['Duncan','Brennan','Scott','Ioana'], time:'6 – 8pm', mktOverride:{newsletter:'done', ads:'na', collateral:'done'} },
+  { id:17, month:'May 2026', dateLabel:'Tue, May 12', start:'2026-05-12', end:'2026-05-12', name:'Henley & Partners Global Citizenship Forum · London', type:'Henley', city:'London, UK', venue:'Glaziers Hall', region:'EMEA', owners:['Gavin'], mktOverride:{newsletter:'done', ads:'done', collateral:'done'} },
+  { id:18, month:'May 2026', dateLabel:'May 12 – 16', start:'2026-05-12', end:'2026-05-16', name:'Gavin London Personal Consultations', type:'PC', city:'London, UK', region:'EMEA', owners:['Gavin'], mktOverride:{newsletter:'done', ads:'done', collateral:'na'} },
+  { id:19, month:'May 2026', dateLabel:'May 14 – 18', start:'2026-05-14', end:'2026-05-18', name:'Bay Area Meetings', type:'Meetings', city:'Bay Area, CA', region:'USA', owners:['Matthew'] },
+  { id:20, month:'May 2026', dateLabel:'Fri, May 15', start:'2026-05-15', end:'2026-05-16', name:'IREX 2026 · EB5 Conference Singapore', type:'Conference', city:'Marina Bay, Singapore', venue:'Sands Expo & Convention Centre', region:'APAC', owners:['Abhishek'], mktOverride:{newsletter:'na', ads:'na', collateral:'done'} },
+  { id:21, month:'May 2026', dateLabel:'Sat, May 16', start:'2026-05-16', end:'2026-05-16', name:'EB5 Investors Magazine · Silicon Valley', type:'Conference', city:'Silicon Valley, CA', venue:'The Juniper Hotel Cupertino', region:'USA', owners:['Matthew'], mktOverride:{newsletter:'na', ads:'na', collateral:'progress'} },
+  { id:22, month:'May 2026', dateLabel:'May 17 – 18', start:'2026-05-17', end:'2026-05-18', name:'Abhishek Singapore Personal Consultations', type:'PC', city:'Singapore', venue:'St. Regis', region:'APAC', owners:['Abhishek'], mktOverride:{newsletter:'done', ads:'done', collateral:'na'} },
+  { id:23, month:'May 2026', dateLabel:'May 18 – 22', start:'2026-05-18', end:'2026-05-22', name:'Mexico Tour', type:'Tour', city:'CDMX · Monterrey', venue:'JW Marriott', region:'LATAM', owners:['Felipe','Brennan'], mktOverride:{newsletter:'na', ads:'done', collateral:'na'} },
+  { id:24, month:'May 2026', dateLabel:'May 19 – 23', start:'2026-05-19', end:'2026-05-23', name:'Abhishek Hong Kong Personal Consultations', type:'PC', city:'Hong Kong', venue:'Ritz Carlton', region:'APAC', owners:['Abhishek'], mktOverride:{newsletter:'done', ads:'done', collateral:'na'} },
+  { id:25, month:'May 2026', dateLabel:'Thu, May 28', start:'2026-05-28', end:'2026-05-28', name:'Miami JTC · Saul Ewing', type:'Meetings', city:'Miami, FL', region:'USA', owners:['Brennan'] },
+  { id:26, month:'May 2026', dateLabel:'Sat, May 30', start:'2026-05-30', end:'2026-05-30', name:'Austin Event – EB5 / Fuel', type:'EB5/Fuel', city:'Austin, TX', venue:'Embassy Suites Austin Central', region:'USA', owners:['Duncan','Matthew','Brennan','Tempel','Jeff','Ioana','Abhishek','Felipe'], time:'1 – 4pm', mktOverride:{newsletter:'progress', ads:'progress'} },
+  { id:27, month:'May 2026', dateLabel:'Sun, May 31', start:'2026-05-31', end:'2026-05-31', name:'Dallas Event – EB5 / Fuel', type:'EB5/Fuel', city:'Dallas, TX', venue:'Hilton Dallas · Plano Granite Park', region:'USA', owners:['Matthew','Felipe','Ioana','Brennan'], time:'1 – 4pm', mktOverride:{newsletter:'progress', ads:'progress'} },
+
+  // JUNE 2026
+  { id:28, month:'Jun 2026', dateLabel:'Mon, Jun 01', start:'2026-06-01', end:'2026-06-02', name:'EB5 Investors Magazine Conference', type:'Conference', city:'Miami, FL', venue:'The St Regis Bal Harbour', region:'USA', owners:['Brennan','Duncan'] },
+  { id:29, month:'Jun 2026', dateLabel:'Jun 2 – 4', start:'2026-06-02', end:'2026-06-04', name:'Seattle Meetings', type:'Meetings', city:'Seattle, WA', region:'USA', owners:['Matthew'] },
+  { id:32, month:'Jun 2026', dateLabel:'Jun 10', start:'2026-06-10', end:'2026-06-10', name:'Bogota Trip', type:'Tour', city:'Bogota, Colombia', region:'LATAM', owners:['Rafael'] },
+  { id:33, month:'Jun 2026', dateLabel:'Jun 12 – 15', start:'2026-06-12', end:'2026-06-15', name:'Korea + China TIH Seminars + Singapore Henley', type:'Seminar', city:'Korea · China · Singapore', region:'APAC', owners:['Brennan'] },
+  { id:34, month:'Jun 2026', dateLabel:'Jun 16 – 18', start:'2026-06-16', end:'2026-06-18', name:'Singapore Meetings', type:'Meetings', city:'Singapore', region:'APAC', owners:['Abhishek','Brennan'] },
+  { id:35, month:'Jun 2026', dateLabel:'Jun 16 – 19', start:'2026-06-16', end:'2026-06-19', name:'Nigeria Investor Consultations', type:'IPC', city:'Nigeria', region:'Africa', owners:[] },
+  { id:36, month:'Jun 2026', dateLabel:'Jun 16 – 20', start:'2026-06-16', end:'2026-06-20', name:'Bay Area Meetings', type:'Meetings', city:'Bay Area, CA', region:'USA', owners:[] },
+  { id:37, month:'Jun 2026', dateLabel:'Thu, Jun 18', start:'2026-06-18', end:'2026-06-18', name:'Henley Singapore · Global Citizenship Forum', type:'Henley', city:'Singapore', venue:'Raffles Singapore', region:'APAC', owners:[] },
+  { id:38, month:'Jun 2026', dateLabel:'Jun 19 – 20', start:'2026-06-19', end:'2026-06-20', name:'Seattle Meetings', type:'Meetings', city:'Seattle, WA', region:'USA', owners:['Matthew'] },
+  { id:39, month:'Jun 2026', dateLabel:'Jun 19 – 24', start:'2026-06-19', end:'2026-06-24', name:'Ghana Investor Consultations', type:'IPC', city:'Ghana', region:'Africa', owners:[] },
+  { id:40, month:'Jun 2026', dateLabel:'Jun 24 – 25', start:'2026-06-24', end:'2026-06-25', name:'Charlotte Personal Consultations', type:'PC', city:'Charlotte, NC', region:'USA', owners:['Rafael'] },
+  { id:41, month:'Jun 2026', dateLabel:'Jun 24 – 30', start:'2026-06-24', end:'2026-06-30', name:'Kenya Investor Consultations', type:'IPC', city:'Kenya', region:'Africa', owners:[] },
+
+  // JULY 2026
+  { id:42, month:'Jul 2026', dateLabel:'Jul 1 – 2', start:'2026-07-01', end:'2026-07-02', name:'Atlanta Personal Consultations', type:'PC', city:'Atlanta, GA', region:'USA', owners:[] },
+  { id:43, month:'Jul 2026', dateLabel:'Jul 8 – 9', start:'2026-07-08', end:'2026-07-09', name:'DC Investor Consultations', type:'IPC', city:'Washington, DC', region:'USA', owners:[] },
+  { id:44, month:'Jul 2026', dateLabel:'Late Jun – Jul', start:'2026-06-25', end:'2026-07-31', name:'Abhishek US Tour', type:'Tour', city:'United States', region:'USA', owners:['Abhishek'] },
+];
+
+// ----- CATEGORIES — 3 public-facing buckets the 9 underlying types collapse into -----
+const CATEGORY_OF = {
+  'IPC': 'in-person',
+  'PC': 'in-person',
+  'Tour': 'in-person',
+  'Meetings': 'in-person',
+  'EB5/Fuel': 'eb5-fuel',
+  'Fuel': 'eb5-fuel',
+  'Conference': 'industry',
+  'Henley': 'industry',
+  'Seminar': 'industry'
+};
+
+const CATEGORY_STYLE = {
+  'in-person': {
+    label: 'In-Person Consultation',
+    short: 'In-Person',
+    color: '#7c3aed',
+    bg: 'rgba(124,58,237,.08)',
+    border: 'rgba(124,58,237,.20)',
+    gradient: 'linear-gradient(135deg, #7c3aed, #a855f7)'
+  },
+  'eb5-fuel': {
+    label: 'EB5 / Fuel Seminar',
+    short: 'EB5 / Fuel',
+    color: '#c0894a',
+    bg: 'rgba(192,137,74,.10)',
+    border: 'rgba(192,137,74,.25)',
+    gradient: 'linear-gradient(135deg, #c0894a, #d4a574)'
+  },
+  'industry': {
+    label: 'Industry Conference',
+    short: 'Industry',
+    color: '#0f766e',
+    bg: 'rgba(15,118,110,.08)',
+    border: 'rgba(15,118,110,.20)',
+    gradient: 'linear-gradient(135deg, #0f766e, #14b8a6)'
+  }
+};
+
+function categoryOf(type) { return CATEGORY_OF[type] || 'in-person'; }
+
+const REGION_FLAG = {
+  'USA':    '🇺🇸',
+  'LATAM':  '🌎',
+  'APAC':   '🌏',
+  'EMEA':   '🇪🇺',
+  'Africa': '🌍',
+  '—':      '🌐'
+};
+
+const TYPE_STYLE = {
+  'IPC':       { color:'#2563eb', bg:'rgba(37,99,235,.08)',  border:'rgba(37,99,235,.18)',  label:'IPC' },
+  'PC':        { color:'#7c3aed', bg:'rgba(124,58,237,.08)', border:'rgba(124,58,237,.18)', label:'Personal Consult' },
+  'Conference':{ color:'#0f766e', bg:'rgba(15,118,110,.08)', border:'rgba(15,118,110,.18)', label:'Conference' },
+  'EB5/Fuel':  { color:'#c0894a', bg:'rgba(192,137,74,.10)', border:'rgba(192,137,74,.25)', label:'EB5 / Fuel' },
+  'Fuel':      { color:'#c0894a', bg:'rgba(192,137,74,.10)', border:'rgba(192,137,74,.25)', label:'Fuel' },
+  'Tour':      { color:'#be185d', bg:'rgba(190,24,93,.08)',  border:'rgba(190,24,93,.18)',  label:'Tour' },
+  'Meetings':  { color:'#475569', bg:'rgba(71,85,105,.08)',  border:'rgba(71,85,105,.18)',  label:'Meetings' },
+  'Henley':    { color:'#0369a1', bg:'rgba(3,105,161,.08)',  border:'rgba(3,105,161,.18)',  label:'Henley' },
+  'Seminar':   { color:'#b45309', bg:'rgba(180,83,9,.08)',   border:'rgba(180,83,9,.18)',   label:'Seminar' },
+};
+
+// ----- MARKETING TIERS — defines which collateral applies to each event type -----
+const TIER_PLAYBOOK = {
+  'public-event': { label: 'Full Public Event',   needs: ['newsletter','ads','collateral'] },
+  'conference':   { label: 'Conference Presence', needs: ['newsletter','collateral']       },
+  'consultation': { label: 'Consultation Push',   needs: ['newsletter','collateral']       },
+  'meeting':      { label: 'Internal Meeting',    needs: []                                },
+  'tour':         { label: 'Tour Promotion',      needs: ['newsletter','collateral']       },
+  'seminar':      { label: 'Seminar',             needs: ['newsletter','collateral']       }
+};
+
+const COLLATERAL_LABELS = {
+  newsletter: { name: 'Newsletter',         short: 'Newsletter',  icon: '✉' },
+  ads:        { name: 'Ads',                short: 'Ads',         icon: '◉' },
+  collateral: { name: 'Marketing collateral',short: 'Collateral', icon: '✦' }
+};
+
+// Map event type → tier
+function tierFor(type) {
+  if (type === 'EB5/Fuel' || type === 'Fuel') return 'public-event';
+  if (type === 'Conference' || type === 'Henley') return 'conference';
+  if (type === 'IPC' || type === 'PC') return 'consultation';
+  if (type === 'Tour') return 'tour';
+  if (type === 'Meetings') return 'meeting';
+  if (type === 'Seminar') return 'seminar';
+  return 'meeting';
+}
+
+// Build default marketing state for an event (event-level override wins)
+function defaultMarketing(ev) {
+  const tier = tierFor(ev.type);
+  const playbook = TIER_PLAYBOOK[tier];
+  const past = isPast(ev);
+  const dStart = new Date(ev.start + 'T00:00:00');
+  const daysOut = Math.round((dStart - TODAY) / 86400000);
+
+  const collateral = {};
+  Object.keys(COLLATERAL_LABELS).forEach(k => {
+    if (ev.mktOverride && ev.mktOverride[k]) {
+      collateral[k] = ev.mktOverride[k];
+    } else if (!playbook.needs.includes(k)) {
+      collateral[k] = 'na';
+    } else if (past || ev.status === 'Done') {
+      collateral[k] = 'done';
+    } else if (daysOut < 14) {
+      collateral[k] = k === 'collateral' ? 'done' : 'progress';
+    } else {
+      collateral[k] = 'pending';
+    }
+  });
+
+  return {
+    tier,
+    campaign: { start: '', end: '' },
+    collateral,
+    assets: { eventPage: '', registration: '', social: '', design: '' }
+  };
+}
+
+// Build, merge with any saved local state
+const SAVE_KEY = 'eb5-tracker-marketing-v3';
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '{}'); }
+  catch { return {}; }
+}
+function saveAll() {
+  const out = {};
+  EVENTS.forEach(e => { out[e.id] = e.marketing; });
+  localStorage.setItem(SAVE_KEY, JSON.stringify(out));
+}
+
+const AVATAR_PALETTE = ['#0a1f3c','#c0894a','#0f766e','#7c3aed','#be185d','#0369a1','#b45309','#1f7a4d','#475569','#2563eb'];
+function avatarColor(name) {
+  let h = 0; for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) | 0;
+  return AVATAR_PALETTE[Math.abs(h) % AVATAR_PALETTE.length];
+}
+function initials(name) { return name.replace(/\?$/,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase(); }
+
+const TODAY = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+function fmtDay(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return { day: d.getDate(), mon: d.toLocaleString('en',{month:'short'}).toUpperCase(), wd: d.toLocaleString('en',{weekday:'short'}) };
+}
+function isPast(ev) { return new Date(ev.end + 'T23:59:59') < TODAY; }
+function isThisWeek(ev) {
+  const start = new Date(ev.start + 'T00:00:00'), end = new Date(ev.end + 'T23:59:59');
+  const weekEnd = new Date(TODAY); weekEnd.setDate(TODAY.getDate()+7);
+  return end >= TODAY && start <= weekEnd;
+}
+function daysOut(ev) {
+  return Math.round((new Date(ev.start + 'T00:00:00') - TODAY) / 86400000);
+}
+
+// ----- READINESS -----
+function readiness(ev) {
+  const m = ev.marketing;
+  if (!m) return { done: 0, total: 0, pct: 0, needsCount: 0 };
+  const items = Object.entries(m.collateral).filter(([k,v]) => v !== 'na');
+  const done = items.filter(([k,v]) => v === 'done').length;
+  const total = items.length;
+  return { done, total, pct: total ? Math.round(done/total*100) : 0, needsCount: total };
+}
+function readinessBucket(ev) {
+  const r = readiness(ev);
+  if (r.total === 0) return 'na';
+  const d = daysOut(ev);
+  if (isPast(ev) || r.pct === 100) return 'ready';
+  if (d <= 7 && r.pct < 80) return 'crit';
+  if (d <= 14 && r.pct < 60) return 'warn';
+  if (r.pct >= 80) return 'ready';
+  if (r.pct >= 40) return 'warn';
+  return 'crit';
+}
+
+// ----- HYDRATE marketing state -----
+function hydrateMarketing() {
+  const saved = loadSaved();
+  EVENTS.forEach(e => {
+    const def = defaultMarketing(e);
+    if (saved[e.id]) {
+      const savedColl = saved[e.id].collateral || {};
+      const cleanedColl = {};
+      Object.keys(COLLATERAL_LABELS).forEach(k => {
+        if (savedColl[k]) cleanedColl[k] = savedColl[k];
+      });
+      e.marketing = {
+        ...def,
+        ...saved[e.id],
+        collateral: { ...def.collateral, ...cleanedColl },
+        assets: { ...def.assets, ...(saved[e.id].assets||{}) },
+      };
+    } else {
+      e.marketing = def;
+    }
+  });
+}
+hydrateMarketing();
+
+// ----- CSV PARSER + GOOGLE SHEETS LOADER -----
+function parseCSV(text) {
+  const rows = []; let i = 0, field = '', row = [], inQ = false;
+  while (i < text.length) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i+1] === '"') { field += '"'; i += 2; continue; }
+      if (c === '"') { inQ = false; i++; continue; }
+      field += c; i++;
+    } else {
+      if (c === '"') { inQ = true; i++; continue; }
+      if (c === ',') { row.push(field); field = ''; i++; continue; }
+      if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; continue; }
+      if (c === '\r') { i++; continue; }
+      field += c; i++;
+    }
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+function normalizeMktState(v) {
+  if (!v) return 'pending';
+  const s = String(v).trim().toLowerCase();
+  if (s === 'done' || s === 'completed' || s === 'yes') return 'done';
+  if (s === 'in progress' || s === 'progress' || s === 'running' || s === 'live' || s === 'wip') return 'progress';
+  if (s === 'n/a' || s === 'na' || s === 'not required' || s === 'not needed' || s === '—' || s === '-') return 'na';
+  return 'pending';
+}
+
+async function loadFromSheet() {
+  if (!SHEET_CSV_URL) return null;
+  try {
+    const bust = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+    const res = await fetch(bust, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const rows = parseCSV(text).filter(r => r.length && r.some(c => c && c.trim()));
+    if (rows.length < 2) throw new Error('CSV has no data rows');
+    const headers = rows[0].map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+    const idx = (key) => headers.indexOf(key);
+    return rows.slice(1).map(r => {
+      const g = (k) => (r[idx(k)] || '').trim();
+      return {
+        id: parseInt(g('id'), 10),
+        month: g('month'),
+        dateLabel: g('date_label'),
+        start: g('start'),
+        end: g('end'),
+        name: g('name'),
+        type: g('type'),
+        city: g('city'),
+        venue: g('venue'),
+        region: g('region'),
+        owners: g('owners') ? g('owners').split(/\s*[,|/]\s*/).filter(Boolean) : [],
+        status: g('status'),
+        lang: g('lang'),
+        time: g('time'),
+        notes: g('notes'),
+        mktOverride: {
+          newsletter: normalizeMktState(g('newsletter')),
+          ads: normalizeMktState(g('ads')),
+          collateral: normalizeMktState(g('collateral'))
+        }
+      };
+    }).filter(e => e.id && e.name);
+  } catch (err) {
+    console.warn('Google Sheet fetch failed:', err.message);
+    return null;
+  }
+}
+
+// ----- STATS -----
+function renderStats() {
+  const total = EVENTS.length;
+  const upcoming = EVENTS.filter(e => !isPast(e));
+  const thisWeek = EVENTS.filter(isThisWeek).length;
+  const intl = EVENTS.filter(e => e.region !== 'USA' && e.region !== '—').length;
+  const cities = new Set(EVENTS.map(e => e.city.split(/[·,]/)[0].trim())).size;
+  const regions = new Set(EVENTS.map(e => e.region).filter(r => r && r !== '—')).size;
+
+  let stats;
+  if (ADMIN_MODE) {
+    const critical = upcoming.filter(e => readinessBucket(e) === 'crit').length;
+    const ready = upcoming.filter(e => readinessBucket(e) === 'ready').length;
+    stats = [
+      { label:'Total events', value:total, sub:'Feb – Jul 2026' },
+      { label:'Upcoming', value:upcoming.length, sub:'from today' },
+      { label:'This week', value:thisWeek, sub:'next 7 days' },
+      { label:'Marketing ready', value:ready, sub:'fully prepped', tone:'good' },
+      { label:'Needs attention', value:critical, sub:'<60% & near', tone: critical > 0 ? 'bad' : 'good' },
+      { label:'Cities', value:cities, sub:'worldwide' },
+    ];
+  } else {
+    stats = [
+      { label:'Total events', value:total, sub:'Feb – Jul 2026' },
+      { label:'Upcoming', value:upcoming.length, sub:'from today' },
+      { label:'This week', value:thisWeek, sub:'next 7 days', tone: thisWeek>0?'good':null },
+      { label:'Regions', value:regions, sub:`incl. ${intl} international` },
+      { label:'Cities', value:cities, sub:'worldwide' },
+      { label:'Months covered', value:6, sub:'Feb – Jul 2026' },
+    ];
+  }
+
+  document.getElementById('stats').innerHTML = stats.map(s => {
+    const toneStyle = s.tone === 'good' ? 'color:var(--good)' : s.tone === 'bad' ? 'color:var(--bad)' : '';
+    return `
+    <div class="stat">
+      <div class="label">${s.label}</div>
+      <div class="value" style="${toneStyle}">${s.value}</div>
+      <div class="sub">${s.sub}</div>
+    </div>`;
+  }).join('');
+
+  // data source indicator handled in init
+  document.getElementById('footerCount').textContent = `${total} events`;
+}
+
+// ----- URGENT ALERT BANNER — events in next 72 hours -----
+function renderAlert() {
+  const el = document.getElementById('alertBanner');
+  if (!el) return;
+  const urgent = EVENTS
+    .filter(e => !isPast(e) && daysOut(e) >= 0 && daysOut(e) <= 3)
+    .sort((a,b) => a.start.localeCompare(b.start));
+  if (urgent.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="alert-inner">
+      <div class="alert-bell">🔔</div>
+      <div>
+        <div class="alert-label"><b>${urgent.length}</b> event${urgent.length>1?'s':''} in the next 72 hours · action time</div>
+      </div>
+      <div class="alert-list">
+        ${urgent.slice(0,4).map(e => {
+          const d = daysOut(e);
+          const when = d === 0 ? 'TODAY' : d === 1 ? 'TOMORROW' : `IN ${d} DAYS`;
+          return `<span class="alert-item" data-id="${e.id}"><b>${when}</b>${e.name.length>40 ? e.name.slice(0,38)+'…' : e.name}</span>`;
+        }).join('')}
+        ${urgent.length > 4 ? `<span class="alert-item" style="color:var(--ink-3)"><b>+${urgent.length-4}</b>more</span>` : ''}
+      </div>
+    </div>`;
+  el.querySelectorAll('.alert-item[data-id]').forEach(it => {
+    it.addEventListener('click', () => openModal(+it.dataset.id));
+  });
+}
+
+// ----- AUTO-REFRESH from Google Sheet every 5 min -----
+let LAST_REFRESH = Date.now();
+let REFRESH_TIMER = null;
+
+function updateRefreshPill() {
+  const el = document.getElementById('refreshLabel');
+  if (!el) return;
+  const seconds = Math.round((Date.now() - LAST_REFRESH) / 1000);
+  let label;
+  if (seconds < 30) label = 'Live · just now';
+  else if (seconds < 60) label = `Live · ${seconds}s ago`;
+  else if (seconds < 3600) label = `Live · ${Math.round(seconds/60)} min ago`;
+  else label = `Live · ${Math.round(seconds/3600)}h ago`;
+  el.textContent = label;
+}
+setInterval(updateRefreshPill, 15000);
+
+async function refreshFromSheet({silent = true} = {}) {
+  if (!SHEET_CSV_URL) return;
+  const pill = document.getElementById('refreshPill');
+  pill?.classList.add('refreshing');
+  if (!silent && document.getElementById('refreshLabel')) {
+    document.getElementById('refreshLabel').textContent = 'Refreshing…';
+  }
+  try {
+    const remote = await loadFromSheet();
+    if (remote && remote.length) {
+      EVENTS.length = 0;
+      EVENTS.push(...remote);
+      hydrateMarketing();
+      LAST_REFRESH = Date.now();
+      renderAlert();
+      renderNextEvent();
+      renderThisWeek();
+      renderStats();
+      renderTypePills();
+      render();
+      setDataSourceIndicator('sheet', remote.length);
+      // Brief green flash on the refresh pill
+      pill?.classList.add('data-updated');
+      setTimeout(() => pill?.classList.remove('data-updated'), 1200);
+    }
+  } finally {
+    pill?.classList.remove('refreshing');
+    updateRefreshPill();
+  }
+}
+
+// Hook up manual click
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('refreshPill')?.addEventListener('click', () => refreshFromSheet({silent:false}));
+});
+
+// Auto-refresh every 5 min
+if (SHEET_CSV_URL) {
+  setInterval(() => refreshFromSheet({silent:true}), 5 * 60 * 1000);
+}
+
+// ----- NEXT EVENT HERO -----
+function renderNextEvent() {
+  const el = document.getElementById('nextEventHero');
+  const upcoming = EVENTS.filter(e => !isPast(e)).sort((a,b) => a.start.localeCompare(b.start));
+  const next = upcoming[0];
+  if (!next) {
+    el.innerHTML = '';
+    return;
+  }
+  const cat = categoryOf(next.type);
+  const cs = CATEGORY_STYLE[cat];
+  const d = daysOut(next);
+  const ongoing = d < 0; // event already started but hasn't ended
+  const flag = REGION_FLAG[next.region] || '';
+  const labelText = ongoing ? `Happening now · ${cs.short}` : `Next up · ${cs.short}`;
+  const num = ongoing ? 'LIVE' : (d === 0 ? '0' : d);
+  const unit = ongoing ? 'in progress' : d === 0 ? 'today' : d === 1 ? 'day · tomorrow' : 'days away';
+  el.innerHTML = `
+    <div class="next-card" data-id="${next.id}" style="cursor:pointer">
+      <div class="next-card-inner">
+        <div>
+          <div class="next-label"><span class="pulse"></span>${labelText}</div>
+          <div class="next-name">${next.name}</div>
+          <div class="next-meta">
+            <span>${flag} ${next.city}</span>
+            ${next.venue ? `<span class="dot"></span><span>${next.venue}</span>` : ''}
+            <span class="dot"></span>
+            <span>${new Date(next.start+'T00:00:00').toLocaleDateString('en',{weekday:'long', month:'long', day:'numeric'})}${next.end!==next.start ? ' → ' + new Date(next.end+'T00:00:00').toLocaleDateString('en',{month:'short', day:'numeric'}) : ''}</span>
+            ${next.owners?.length ? `<span class="dot"></span><span>${next.owners.slice(0,3).join(', ')}${next.owners.length>3?` +${next.owners.length-3}`:''}</span>` : ''}
+          </div>
+        </div>
+        <div class="next-countdown">
+          <div class="num" style="${ongoing ? 'font-size:38px' : ''}">${num}</div>
+          <div class="unit">${unit}</div>
+        </div>
+      </div>
+    </div>`;
+  el.querySelector('.next-card').addEventListener('click', () => openModal(next.id));
+}
+
+function renderThisWeek() {
+  const el = document.getElementById('thisWeekStrip');
+  const week = EVENTS.filter(isThisWeek).sort((a,b) => a.start.localeCompare(b.start));
+  if (week.length === 0) {
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = `<span class="tw-label">This week · ${week.length}</span>` + week.map(e => {
+    const cat = categoryOf(e.type);
+    const cs = CATEGORY_STYLE[cat];
+    const d = fmtDay(e.start);
+    return `<span class="tw-chip" data-id="${e.id}"><span class="dot" style="background:${cs.color}"></span>${d.wd} ${d.day} · ${e.name.split('·')[0].split('–')[0].trim().slice(0,40)}</span>`;
+  }).join('');
+  el.querySelectorAll('.tw-chip').forEach(c => {
+    c.addEventListener('click', () => openModal(+c.dataset.id));
+  });
+}
+
+// ----- TYPE PILLS -----
+let activeType = 'All';
+function renderTypePills() {
+  // Public mode: All + 3 category pills
+  // Admin mode: + "Needs attention" / "Ready"
+  const catCounts = { 'in-person': 0, 'eb5-fuel': 0, 'industry': 0 };
+  EVENTS.forEach(e => { catCounts[categoryOf(e.type)] = (catCounts[categoryOf(e.type)]||0) + 1; });
+
+  let html = `<button class="pill ${'All'===activeType?'active':''}" data-type="All">All<span class="count">${EVENTS.length}</span></button>`;
+
+  if (ADMIN_MODE) {
+    const upcoming = EVENTS.filter(e => !isPast(e));
+    const needsCount = upcoming.filter(e => ['crit','warn'].includes(readinessBucket(e))).length;
+    const readyCount = upcoming.filter(e => ['ready','na'].includes(readinessBucket(e))).length;
+    html += `<button class="pill ${'Needs attention'===activeType?'active':''}" data-type="Needs attention" style="${activeType!=='Needs attention'?'border-color:rgba(185,28,28,.25);color:var(--bad)':''}">⚠ Needs attention<span class="count">${needsCount}</span></button>`;
+    html += `<button class="pill ${'Ready'===activeType?'active':''}" data-type="Ready" style="${activeType!=='Ready'?'border-color:rgba(31,122,77,.25);color:var(--good)':''}">✓ Ready<span class="count">${readyCount}</span></button>`;
+  }
+
+  ['in-person','eb5-fuel','industry'].forEach(catKey => {
+    const cs = CATEGORY_STYLE[catKey];
+    const dataKey = 'cat:' + catKey;
+    const active = activeType === dataKey;
+    html += `<button class="pill ${active?'active':''}" data-type="${dataKey}" style="${active?`background:${cs.color};border-color:${cs.color};color:white`:`color:${cs.color};border-color:${cs.border}`}">${cs.label}<span class="count" style="${active?'background:rgba(255,255,255,.18)':''}">${catCounts[catKey]}</span></button>`;
+  });
+
+  document.getElementById('typePills').innerHTML = html;
+  document.querySelectorAll('#typePills .pill').forEach(p => {
+    p.addEventListener('click', () => { activeType = p.dataset.type; renderTypePills(); render(); });
+  });
+}
+
+// ----- RENDER -----
+let searchTerm = '';
+let view = 'grid';
+
+function filtered() {
+  const q = searchTerm.toLowerCase().trim();
+  return EVENTS.filter(e => {
+    if (activeType === 'Needs attention') {
+      if (isPast(e)) return false;
+      if (readinessBucket(e) !== 'crit' && readinessBucket(e) !== 'warn') return false;
+    } else if (activeType === 'Ready') {
+      if (isPast(e)) return false;
+      if (readinessBucket(e) !== 'ready' && readinessBucket(e) !== 'na') return false;
+    } else if (typeof activeType === 'string' && activeType.startsWith('cat:')) {
+      if (categoryOf(e.type) !== activeType.slice(4)) return false;
+    } else if (activeType !== 'All' && e.type !== activeType) return false;
+    if (!q) return true;
+    return [e.name, e.city, e.venue, e.region, ...(e.owners||[])].join(' ').toLowerCase().includes(q);
+  });
+}
+
+function eventCard(e) {
+  const cat = categoryOf(e.type);
+  const cs = CATEGORY_STYLE[cat];
+  const past = isPast(e);
+  const d = fmtDay(e.start);
+  const sameDay = e.start === e.end;
+  const endD = fmtDay(e.end);
+  const dateChip = sameDay
+    ? `<div class="date-chip"><div class="m">${d.mon}</div><div class="d">${d.day}</div><div class="r">${d.wd}</div></div>`
+    : `<div class="date-chip"><div class="m">${d.mon}</div><div class="d">${d.day}${d.mon !== endD.mon ? '' : '–'+endD.day}</div><div class="r">${d.mon!==endD.mon?'→ '+endD.mon+' '+endD.day:''}</div></div>`;
+
+  // Days-out chip with urgency tier
+  const dOut = daysOut(e);
+  let daysChip = '';
+  if (past) daysChip = `<span class="days-chip past">${e.status === 'Done' ? 'Done' : 'Completed'}</span>`;
+  else if (dOut === 0) daysChip = `<span class="days-chip today">● Today</span>`;
+  else if (dOut <= 7) daysChip = `<span class="days-chip thisweek">In ${dOut} day${dOut===1?'':'s'}</span>`;
+  else if (dOut <= 30) daysChip = `<span class="days-chip soon">In ${dOut} days</span>`;
+  else daysChip = `<span class="days-chip later">In ${dOut} days</span>`;
+
+  const ownersHtml = (e.owners||[]).slice(0,4).map(o =>
+    `<div class="avatar" style="--ava-bg:${avatarColor(o)}" title="${o}">${initials(o)}</div>`
+  ).join('');
+  const extraOwners = (e.owners||[]).length > 4 ? `<div class="avatar" style="--ava-bg:#94a3b8">+${e.owners.length-4}</div>` : '';
+  const ownersLabel = (e.owners||[]).length
+    ? `<span class="owners-label"><b>${e.owners[0]}</b>${e.owners.length>1?` +${e.owners.length-1}`:''}</span>`
+    : `<span class="owners-label">Owner TBD</span>`;
+
+  // Readiness
+  const r = readiness(e);
+  const bucket = readinessBucket(e);
+  const fillClass = r.pct >= 80 ? '' : r.pct >= 40 ? 'mid' : 'low';
+
+  // Show all 3 marketing items that apply
+  const priorityKeys = ['newsletter','ads','collateral']
+    .filter(k => e.marketing.collateral[k] && e.marketing.collateral[k] !== 'na');
+  // If nothing applies (meeting/etc), use a non-applicable note
+  const mktStrip = r.total === 0 ? '' : `
+    <div class="mkt-strip">
+      <div class="mkt-head">
+        <div class="mkt-title">Marketing readiness</div>
+        <div class="mkt-ratio">${r.done}<span>/${r.total}</span></div>
+      </div>
+      <div class="mkt-bar"><div class="fill ${fillClass}" style="width:${r.pct}%"></div></div>
+      <div class="mkt-icons">
+        ${priorityKeys.map(k => {
+          const state = e.marketing.collateral[k];
+          const lbl = COLLATERAL_LABELS[k];
+          return `<div class="mkt-icon ${state}" title="${lbl.name}: ${state}">
+            <span class="glyph">${lbl.icon}</span>
+            <span>${lbl.short}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  // Footer status
+  let footerBadge;
+  if (r.total === 0) {
+    footerBadge = past ? `<span class="status-dot done">● Completed</span>` : `<span class="status-dot pending">● Internal</span>`;
+  } else if (past || r.pct === 100) {
+    footerBadge = `<span class="ready-pill">● ${past ? 'Completed' : 'Ready'}</span>`;
+  } else if (bucket === 'crit') {
+    footerBadge = `<span class="ready-pill crit">● ${r.pct}% · attention</span>`;
+  } else if (bucket === 'warn') {
+    footerBadge = `<span class="ready-pill warn">● ${r.pct}% prepped</span>`;
+  } else {
+    footerBadge = `<span class="ready-pill">● ${r.pct}% on track</span>`;
+  }
+
+  const flag = REGION_FLAG[e.region] || '';
+  return `
+    <article class="card ${past?'past':''}" style="--type-color:${cs.color};--cat-color:${cs.color};--cat-bg:${cs.bg};--cat-border:${cs.border}" data-id="${e.id}">
+      <div class="card-top">
+        <div>
+          ${dateChip}
+          ${daysChip}
+        </div>
+        <span class="cat-badge">${cs.short}</span>
+      </div>
+      <h3 class="card-name">${e.name}</h3>
+      <div class="card-loc">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>${e.city}</span>${e.venue?`<span class="venue">· ${e.venue}</span>`:''}
+        ${flag ? `<span class="region-flag" style="margin-left:auto" title="${e.region}">${flag}</span>` : ''}
+      </div>
+      ${e.time ? `<div class="card-time">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        ${e.time}
+      </div>` : ''}
+      ${ADMIN_MODE ? mktStrip : ''}
+      <div class="card-foot">
+        <div class="owners">${ownersHtml}${extraOwners}</div>
+        ${ownersLabel}
+        ${ADMIN_MODE ? footerBadge : ''}
+      </div>
+    </article>
+  `;
+}
+
+function render() {
+  const list = filtered();
+  const months = [...new Set(list.map(e => e.month))];
+  const monthOrder = ['Feb 2026','Mar 2026','Apr 2026','May 2026','Jun 2026','Jul 2026'];
+  months.sort((a,b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
+
+  if (list.length === 0) {
+    document.getElementById('gridContainer').innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div class="icon">—</div>
+        <div>No events match these filters.</div>
+      </div>`;
+    document.getElementById('timelineContainer').innerHTML = '';
+    return;
+  }
+
+  // Grid
+  document.getElementById('gridContainer').innerHTML = months.map(m => {
+    const evs = list.filter(e => e.month === m);
+    const monthDate = new Date(evs[0].start + 'T00:00:00');
+    const monthFull = monthDate.toLocaleString('en',{month:'long', year:'numeric'});
+    return `
+      <div class="month-block" id="m-${m.replace(/\s/g,'')}" style="grid-column:1/-1">
+        <div class="month-head">
+          <div class="month-title">${monthFull}<span>${evs.length} event${evs.length>1?'s':''}</span></div>
+          <div class="month-meta">${[...new Set(evs.flatMap(e=>e.region))].join(' · ')}</div>
+        </div>
+        <div class="grid">${evs.map(eventCard).join('')}</div>
+      </div>`;
+  }).join('');
+
+  // Timeline
+  document.getElementById('timelineContainer').innerHTML = months.map(m => {
+    const evs = list.filter(e => e.month === m).sort((a,b) => a.start.localeCompare(b.start));
+    const monthDate = new Date(evs[0].start + 'T00:00:00');
+    const monthFull = monthDate.toLocaleString('en',{month:'long', year:'numeric'});
+    return `
+      <div class="tl-month" id="t-${m.replace(/\s/g,'')}">
+        <div class="month-head">
+          <div class="month-title">${monthFull}<span>${evs.length} event${evs.length>1?'s':''}</span></div>
+        </div>
+        ${evs.map(e => {
+          const cat = categoryOf(e.type);
+          const cs = CATEGORY_STYLE[cat];
+          const d = fmtDay(e.start);
+          const flag = REGION_FLAG[e.region] || '';
+          return `
+            <div class="tl-row" data-id="${e.id}">
+              <div class="tl-date">${e.dateLabel}<br><span class="day">${d.wd}</span></div>
+              <div class="tl-event" style="--type-color:${cs.color};--type-bg:${cs.bg};--cat-color:${cs.color};--cat-bg:${cs.bg};--cat-border:${cs.border}">
+                <div class="marker"></div>
+                <div class="body">
+                  <div class="name">${e.name}</div>
+                  <div class="meta">${flag} ${e.city}${e.venue?` · ${e.venue}`:''}${e.owners?.length?` · <b>${e.owners.join(', ')}</b>`:''}</div>
+                </div>
+                <span class="cat-badge">${cs.short}</span>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`;
+  }).join('');
+
+  document.querySelectorAll('.card, .tl-row').forEach(el => {
+    el.addEventListener('click', () => openModal(+el.dataset.id));
+  });
+}
+
+// ----- MODAL -----
+function openModal(id) {
+  const e = EVENTS.find(x => x.id === id);
+  if (!e) return;
+  const st = TYPE_STYLE[e.type] || TYPE_STYLE['Meetings'];
+  const start = new Date(e.start + 'T00:00:00').toLocaleDateString('en',{weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  const end = e.start !== e.end ? new Date(e.end + 'T00:00:00').toLocaleDateString('en',{weekday:'long', month:'long', day:'numeric', year:'numeric'}) : null;
+
+  document.getElementById('modalContent').style.setProperty('--modal-color', st.color);
+  const r = readiness(e);
+  const playbookName = TIER_PLAYBOOK[e.marketing.tier].label;
+  const collateralOrder = ['newsletter','ads','collateral'];
+
+  const checklistHtml = r.total === 0
+    ? `<div class="mkt-tip">This is an <b>${playbookName.toLowerCase()}</b> — no public-facing marketing required.</div>`
+    : `
+    <div class="mkt-progress"><div class="fill" style="width:${r.pct}%;${r.pct<40?'background:linear-gradient(90deg,var(--bad),#dc2626)':r.pct<80?'background:linear-gradient(90deg,var(--warn),#d97706)':''}"></div></div>
+    <div class="checklist">
+      ${collateralOrder
+        .filter(k => e.marketing.collateral[k] && e.marketing.collateral[k] !== 'na')
+        .map(k => `
+          <div class="check-item" data-state="${e.marketing.collateral[k]}" data-key="${k}" data-event="${e.id}">
+            <span class="dot"></span>
+            <span>${COLLATERAL_LABELS[k].name}</span>
+          </div>`).join('')}
+    </div>
+    <div class="mkt-tip">Click any item to cycle <b>Pending → In Progress → Done</b>. Changes save to your browser.</div>`;
+
+  const cat = categoryOf(e.type);
+  const cs = CATEGORY_STYLE[cat];
+  document.getElementById('modalContent').style.setProperty('--modal-color', cs.color);
+  document.getElementById('modalContent').innerHTML = `
+    <button class="close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <span class="cat-badge" style="--cat-color:${cs.color};--cat-bg:${cs.bg};--cat-border:${cs.border}">${cs.label}</span>
+    <h2>${e.name}</h2>
+    <div style="color:var(--ink-3);font-size:14px">${e.dateLabel} · ${REGION_FLAG[e.region]||''} ${e.region}${ADMIN_MODE ? ' · ' + playbookName : ''}</div>
+    <div class="meta-grid">
+      <div class="row"><div class="k">Start</div><div class="v">${start}</div></div>
+      ${end ? `<div class="row"><div class="k">End</div><div class="v">${end}</div></div>` : `<div class="row"><div class="k">Duration</div><div class="v">Single day</div></div>`}
+      <div class="row"><div class="k">City</div><div class="v">${e.city}</div></div>
+      ${e.venue ? `<div class="row"><div class="k">Venue</div><div class="v">${e.venue}</div></div>` : ''}
+      ${e.time ? `<div class="row"><div class="k">Time</div><div class="v">${e.time}</div></div>` : ''}
+      ${e.lang ? `<div class="row"><div class="k">Language</div><div class="v">${e.lang}</div></div>` : ''}
+      <div class="row full"><div class="k">Owners · Speakers</div>
+        <div class="owner-list">${(e.owners||[]).length ? e.owners.map(o => `<span class="o">${o}</span>`).join('') : '<span class="o" style="color:var(--ink-3);font-style:italic">TBD</span>'}</div>
+      </div>
+    </div>
+
+    ${ADMIN_MODE ? `
+    <div class="mkt-section">
+      <h3>Marketing checklist <span class="badge">${r.total ? r.done + '/' + r.total + ' · ' + r.pct + '%' : '—'}</span></h3>
+      ${checklistHtml}
+    </div>` : ''}
+  `;
+
+  // Wire up click-to-cycle on checklist
+  document.querySelectorAll('#modalContent .check-item').forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const cur = el.dataset.state;
+      const next = cur === 'pending' ? 'progress' : cur === 'progress' ? 'done' : 'pending';
+      el.dataset.state = next;
+      const eid = +el.dataset.event;
+      const key = el.dataset.key;
+      const target = EVENTS.find(x => x.id === eid);
+      target.marketing.collateral[key] = next;
+      saveAll();
+      // refresh the card and stats without closing modal
+      render();
+      renderStats();
+      // update modal progress display
+      const r2 = readiness(target);
+      const badge = document.querySelector('#modalContent .mkt-section h3 .badge');
+      if (badge) badge.textContent = `${r2.done}/${r2.total} · ${r2.pct}%`;
+      const fill = document.querySelector('#modalContent .mkt-progress .fill');
+      if (fill) {
+        fill.style.width = r2.pct + '%';
+        fill.style.background = r2.pct < 40 ? 'linear-gradient(90deg,var(--bad),#dc2626)'
+                               : r2.pct < 80 ? 'linear-gradient(90deg,var(--warn),#d97706)'
+                               : 'linear-gradient(90deg,var(--good),#2da76b)';
+      }
+    });
+  });
+
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.getElementById('modal').classList.remove('open'); });
+
+// ----- VIEW TOGGLE -----
+document.getElementById('gridBtn').addEventListener('click', () => {
+  view = 'grid';
+  document.getElementById('gridBtn').classList.add('active');
+  document.getElementById('timelineBtn').classList.remove('active');
+  document.getElementById('gridContainer').classList.add('active');
+  document.getElementById('timelineContainer').classList.remove('active');
+});
+document.getElementById('timelineBtn').addEventListener('click', () => {
+  view = 'timeline';
+  document.getElementById('timelineBtn').classList.add('active');
+  document.getElementById('gridBtn').classList.remove('active');
+  document.getElementById('timelineContainer').classList.add('active');
+  document.getElementById('gridContainer').classList.remove('active');
+});
+
+// ----- SEARCH -----
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchTerm = e.target.value;
+  render();
+});
+
+// ----- EXPORT -----
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const collateralCols = ['newsletter','ads','collateral'];
+  const header = ['Month','Date','Event','Type','City','Venue','Region','Owners','Time','Status','Tier','Readiness %','Done','Total',...collateralCols.map(c => COLLATERAL_LABELS[c]?.name || c)];
+  const rows = [header];
+  EVENTS.forEach(e => {
+    const r = readiness(e);
+    const m = e.marketing;
+    rows.push([
+      e.month, e.dateLabel, e.name, e.type, e.city, e.venue||'', e.region,
+      (e.owners||[]).join(' / '), e.time||'',
+      e.status||(isPast(e)?'Completed':'Scheduled'),
+      TIER_PLAYBOOK[m.tier].label, r.pct + '%', r.done, r.total,
+      ...collateralCols.map(c => m.collateral[c]||'na')
+    ]);
+  });
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'eb5-events-feb-jul-2026.csv'; a.click();
+  URL.revokeObjectURL(url);
+});
+
+// ----- INIT -----
+function setDataSourceIndicator(source, count) {
+  const el = document.getElementById('dataSource');
+  if (!el) return;
+  if (source === 'sheet') {
+    // In admin mode, make the badge a clickable link to the editable Sheet
+    if (ADMIN_MODE && SHEET_EDIT_URL) {
+      el.innerHTML = `<a href="${SHEET_EDIT_URL}" target="_blank" rel="noopener" title="Open Sheet (edit)" style="color:var(--good);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--good)">● Live from Google Sheet ↗</a> · ${count} events`;
+    } else {
+      el.innerHTML = `<span style="color:var(--good);font-weight:600">● Live from Google Sheet</span> · ${count} events`;
+    }
+  } else if (source === 'sheet-fail') {
+    el.innerHTML = `<span style="color:var(--bad);font-weight:600">● Sheet unreachable</span> · using embedded data`;
+  } else {
+    el.innerHTML = `Local data · ${count} events`;
+  }
+}
+
+(async () => {
+  // Live "today" label
+  const todayLabel = document.getElementById('todayLabel');
+  if (todayLabel) todayLabel.textContent = TODAY.toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  if (SHEET_CSV_URL) {
+    const remote = await loadFromSheet();
+    if (remote && remote.length) {
+      EVENTS.length = 0;
+      EVENTS.push(...remote);
+      hydrateMarketing();
+      setDataSourceIndicator('sheet', remote.length);
+    } else {
+      setDataSourceIndicator('sheet-fail');
+    }
+  } else {
+    setDataSourceIndicator('local', EVENTS.length);
+  }
+  renderAlert();
+  renderNextEvent();
+  renderThisWeek();
+  renderStats();
+  renderTypePills();
+  render();
+  LAST_REFRESH = Date.now();
+  updateRefreshPill();
+})();
+</script>
+</body>
+</html>
